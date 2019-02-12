@@ -1,0 +1,19 @@
+<div class="container">
+  <div class="create">
+      <input type="text" [(ngModel)]="title" placeholder="title">
+
+      <button class="btn btn-primary"(click)="createRecipe(title)" [disabled]="!title">
+        Add
+      </button>
+  </div>
+</div>
+
+
+
+<div class="list-div">
+  <ul class="list-group" >
+    <li class="list-group-item"*ngFor="let recipe of recipes ">
+      <p>{{ recipe.title }}</p>
+    </li>
+  </ul>
+</div>
