@@ -8,14 +8,10 @@ import * as firebase from 'firebase';
 export class RecipeService implements OnInit {
   userId: string;
   recipes;
-  recipeRef = firebase.database().ref('/recipes/' + this.userId);
+  recipeRef;
+
 
   constructor(private authService: AuthService, private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
-
-    this.afAuth.authState.subscribe(user => {
-        console.log(user.uid);
-        this.userId = user.uid;
-    });
   }
 
 ngOnInit() {
@@ -23,13 +19,21 @@ ngOnInit() {
 
 
 
-getRecipe() {
-  return this.db.list('/recipes/' + this.userId).valueChanges();
+getRecipe(userId) {
+    console.log(userId);
+    return this.db.list('/recipes/' + userId).valueChanges();
 }
 
   createRecipe(title)  {
-    this.recipeRef.push({
-      title: title
-  });  }
+    this.afAuth.authState.subscribe(user => {
+      console.log(user.uid);
+      this.userId = user.uid;
+      this.recipeRef = firebase.database().ref('/recipes/' + this.userId);
+
+      this.recipeRef.push({
+        title: title
+      });
+    });
+}
 
 }

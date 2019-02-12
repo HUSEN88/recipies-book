@@ -12,6 +12,7 @@ export class AuthService {
 
   constructor(private firebaseAuth: AngularFireAuth, private router: Router, private db: AngularFireDatabase) {
     this.user = firebaseAuth.authState;
+    console.log(this.user);
   }
 
   signup(email: string, password: string, username: string) {
@@ -53,9 +54,5 @@ export class AuthService {
       .auth
       .signOut();
     console.log(this.user);
-  }
-
-  getUserId() {
-    return this.firebaseAuth.authState;
   }
 }

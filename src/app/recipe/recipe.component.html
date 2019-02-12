@@ -8,9 +8,9 @@
   </div>
 </div>
 
+<button class="btn btn-success" (click)="getRecipes()">show recipes</button>
 
-
-<div class="list-div">
+<div class="list-div" *ngIf="show">
   <ul class="list-group" >
     <li class="list-group-item"*ngFor="let recipe of recipes ">
       <p>{{ recipe.title }}</p>
