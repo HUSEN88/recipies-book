@@ -1,19 +1,15 @@
-<div class="container">
-  <div class="create">
-      <input type="text" [(ngModel)]="title" placeholder="title">
-
-      <button class="btn btn-primary"(click)="createRecipe(title)" [disabled]="!title">
-        Add
-      </button>
+  <div class="row">
+    <div class="col col-xs-8">
+        <input type="text" [(ngModel)]="title" placeholder="title" class="form-control">
+    </div>
+    <div class="col col-xs-2">
+        <button class="btn btn-primary"(click)="createRecipe(title)" [disabled]="!title"><i class="fa fa-plus"></i></button>
+    </div>
+    <div class="col col-xs-2">
+        <button class="btn btn-primary"(click)="createRecipe(title)" [disabled]="!title"><i class="fa fa-plus"> Ingredients</i></button>
+    </div>
   </div>
-</div>
-<!-- <div class="update" *ngIf="updateFormShow">
-  <input type="text" [(ngModel)]="title" placeholder="title">
 
-  <button class="btn btn-primary"(click)="updateRecipe(recipe.id, recipe.title)" [disabled]="!title">
-    Add
-  </button>
-</div> -->
 
 <button class="btn btn-success" (click)="getRecipes()">show recipes</button>
 
@@ -21,11 +17,11 @@
   <ul class="list-group" >
     <li class="list-group-item"*ngFor="let recipe of recipes ">
       <div>
-          <p>{{ recipe.title }}{{recipe.key}}</p>
-          <button class="btn btn-danger deleteBtn" (click)="delete(recipe.key)"> delete </button> 
-            <!-- <button class="btn btn-primary" (click)="updateForm()">update</button> -->
+          <p>{{ recipe.title }}</p>
+          <button class="btn btn-danger deleteBtn" (click)="delete(recipe.key)"><i class="fa fa-trash"></i></button> 
+          <button class="btn btn-primary edit" (click)="updateForm(recipe.key)"><i class="fa fa-edit"></i></button>  
       </div>
-      
     </li>
   </ul>
 </div>
+<app-edit-recipe [key]="recipeKey" *ngIf="updateFormShow"></app-edit-recipe>

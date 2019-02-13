@@ -11,10 +11,10 @@ import {map} from 'rxjs/operators';
 export class RecipeComponent implements OnInit {
   userId;
 recipes;
+updateFormShow = false;
 title: string;
 show = false;
-key: string;
-// updateFormShow = false;
+recipeKey: string;
 
   constructor(private recipe: RecipeService, private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
     }
@@ -25,33 +25,27 @@ key: string;
     this.recipe.createRecipe(title);
   }
 
-  // updateRecipe(key, title) {
-  //   this.updateFormShow = true;
-  //   this.recipe.updateRecipe(key, title);
-  // }
-
   getRecipes() {
     this.afAuth.authState.subscribe(user => {
       console.log(user.uid);
       this.userId = user.uid;
       this.recipe.getRecipe(this.userId)
-      .snapshotChanges().pipe(map(changes => {
-        return changes.map(c => ({ key: c.payload.key, ...c.payload.val() }));
-      })).subscribe( recipes => {
+      .subscribe( recipes => {
         this.show = true;
         this.recipes = recipes;
         console.log(this.recipes);
       });
+      console.log(this.recipes);
     });
   }
 
-  delete(key) {
+  delete(key: string) {
     this.recipe.deleteRecipe(key);
   }
-  // updateForm() {
-  //   this.updateFormShow = !this.updateFormShow;
-  // }
 
-
+  updateForm(key) {
+    this.updateFormShow = true;
+    this.recipeKey = key;
+  }
 
 }
