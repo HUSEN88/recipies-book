@@ -7,3 +7,9 @@
 .list-div{
     margin-top:20px;
 }
+
+.deleteBtn{
+    position: absolute;
+    top: 7px;
+    right: 5px;
+}

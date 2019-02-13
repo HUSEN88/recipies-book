@@ -7,13 +7,25 @@
       </button>
   </div>
 </div>
+<!-- <div class="update" *ngIf="updateFormShow">
+  <input type="text" [(ngModel)]="title" placeholder="title">
+
+  <button class="btn btn-primary"(click)="updateRecipe(recipe.id, recipe.title)" [disabled]="!title">
+    Add
+  </button>
+</div> -->
 
 <button class="btn btn-success" (click)="getRecipes()">show recipes</button>
 
 <div class="list-div" *ngIf="show">
   <ul class="list-group" >
     <li class="list-group-item"*ngFor="let recipe of recipes ">
-      <p>{{ recipe.title }}</p>
+      <div>
+          <p>{{ recipe.title }}{{recipe.key}}</p>
+          <button class="btn btn-danger deleteBtn" (click)="delete(recipe.key)"> delete </button> 
+            <!-- <button class="btn btn-primary" (click)="updateForm()">update</button> -->
+      </div>
+      
     </li>
   </ul>
 </div>

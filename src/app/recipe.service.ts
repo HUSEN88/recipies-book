@@ -9,9 +9,10 @@ export class RecipeService implements OnInit {
   userId: string;
   recipes;
   recipeRef;
+  recipeKey: string;
 
 
-  constructor(private authService: AuthService, private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
+  constructor( private db: AngularFireDatabase, private afAuth: AngularFireAuth) {
   }
 
 ngOnInit() {
@@ -20,8 +21,7 @@ ngOnInit() {
 
 
 getRecipe(userId) {
-    console.log(userId);
-    return this.db.list('/recipes/' + userId).valueChanges();
+    return this.db.list('/recipes/' + userId);
 }
 
   createRecipe(title)  {
@@ -29,11 +29,27 @@ getRecipe(userId) {
       console.log(user.uid);
       this.userId = user.uid;
       this.recipeRef = firebase.database().ref('/recipes/' + this.userId);
-
+      // this.recipeKey = firebase.database().ref().child('/recipes/' + this.userId).push().key;
       this.recipeRef.push({
         title: title
       });
     });
+}
+
+// updateRecipe(key, value) {
+//   this.afAuth.authState.subscribe(user => {
+//     this.userId = user.uid;
+//     firebase.database().ref('/recipes/' + this.userId + key);
+//     this.recipeRef.update(key, value);
+//   });
+// }
+
+deleteRecipe(key) {
+  this.afAuth.authState.subscribe(user => {
+    this.userId = user.uid;
+    this.recipeRef = firebase.database().ref('/recipes/' + this.userId + '/' + key);
+    this.recipeRef.remove();
+  });
 }
 
 }
