@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../auth.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -16,12 +16,8 @@ export class LoginComponent implements OnInit {
 
   login() {
     this.authService.login(this.email, this.password);
-    this.email = this.password = '';
     this.router.navigateByUrl('recipe');
   }
 
-  // logout() {
-  //   this.authService.logout();
-  // }
 
 }
